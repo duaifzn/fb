@@ -20,14 +20,14 @@ db_facebook.once('open', () => {
 let facebook = db_facebook.model('facebook', facebookSchema);
 
 module.exports = {
-  fbTofacebookDb: async fanPage => {
-    let temp = await facebook.findOne({ url: fanPage.url });
-    if(!temp){
+  dataTofacebookDb: async fanPage => {
+    let oldData = await facebook.findOne({ url: fanPage.url });
+    if (!oldData) {
       facebook.create(
         {
           url: fanPage.url,
           like: fanPage.like,
-          follower: fanPage.follower,
+          follower: fanPage.follower,     
           posts: fanPage.posts,
         },
         (err, data) => {
@@ -36,14 +36,36 @@ module.exports = {
       )
     }
     else {
-      temp.overwrite({
+      oldData.overwrite({
         url: fanPage.url,
         like: fanPage.like,
+        likeGrowValue: fanPage.likeGrowValue,
         follower: fanPage.follower,
+        followerGrowValue: fanPage.followerGrowValue,
         posts: fanPage.posts,
       })
-      await temp.save();
+      await oldData.save();
     }
     
   },
+  compareGrowValue: async fanPage => {
+    let oldData = await facebook.findOne({ url: fanPage.url });
+    if (oldData) {
+      fanPage.likeGrowValue = fanPage.like - oldData.like
+      fanPage.commentGrowValue = fanPage.commentValue - oldData.commentValue
+      fanPage.shareGrowValue = fanPage.shareValue - oldData.shareValue
+      fanPage.posts.map(newPost => {
+        oldData.posts.forEach(oldPost => {
+          if (oldPost.title === newPost.title){
+            newPost.likeGrowValue = newPost.like - oldPost.like
+            newPost.commentGrowValue = newPost.commentValue - oldPost.commentValue
+            newPost.shareGrowValue = newPost.shareValue - oldPost.shareValue
+          }
+        })
+        return newPost
+      })
+    }
+    return fanPage
+    
+  }
 };

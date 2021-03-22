@@ -13,6 +13,7 @@ const postSchema = new Schema({
   secondHot: { type: String },
   thirdHot: { type: String },
   like: { type: String },
+  likeGrowValue: { type: String, default: '0' },
   bigHeart: { type: String },
   care: { type: String },
   lol: { type: String },
@@ -20,16 +21,20 @@ const postSchema = new Schema({
   cry: { type: String },
   angry: { type: String },
   commentValue: { type: String },
+  commentGrowValue: { type: String, default: '0' },
   shareValue: { type: String },
+  shareGrowValue: { type: String, default: '0' },
   comments: [commentSchema],
 });
 
 const facebookSchema = new Schema({
   url: { type: String , unique: true },
   like: { type: String },
+  likeGrowValue:{type: String, default: '0'},
   follower: { type: String },
+  followerGrowValue: { type: String, default: '0' },
   posts: [postSchema],
-}, { timestamps: true });
+}, { timestamps: true ,collection: 'facebook'});
 
 module.exports = facebookSchema;
 

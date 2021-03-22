@@ -7,7 +7,7 @@ function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-schedule.scheduleJob('*/10 * * * *', async () =>{
+schedule.scheduleJob('*/1 * * * *', async () =>{
   console.log('RUN schedule!!!!!!!!!');
   for (let i = 0; i < targetUrls.length; i++){
     fbCrawler(targetUrls[i])

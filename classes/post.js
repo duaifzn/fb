@@ -6,6 +6,7 @@ class Post{
     this.secondHot = "null";
     this.thirdHot = "null";
     this.like = 'null';
+    this.likeGrowValue = '0';
     this.bigHeart = 'null';
     this.care = 'null';
     this.lol = 'null';
@@ -13,78 +14,96 @@ class Post{
     this.cry = 'null';
     this.angry = 'null';
     this.commentValue = "null";
+    this.commentGrowValue = '0';
     this.shareValue = "null";
+    this.shareGrowValue = '0';
     this.comments = [];
   }
   firstHotAnalysis() {
     if (this.firstHot.includes('讚')) {
-      this.like = this.firstHot.replace(/[^0-9]/ig,"");
+      this.like = this.unitChangeNumber(this.firstHot)
     }
     else if (this.firstHot.includes('大心')) {
-      this.bigHeart = this.firstHot.replace(/[^0-9]/ig,"");
+      this.bigHeart = this.unitChangeNumber(this.firstHot)
     }
     else if (this.firstHot.includes('加油')) {
-      this.care = this.firstHot.replace(/[^0-9]/ig,"");
+      this.care = this.unitChangeNumber(this.firstHot)
     }
     else if (this.firstHot.includes('哈')) {
-      this.lol = this.firstHot.replace(/[^0-9]/ig,"");
+      this.lol = this.unitChangeNumber(this.firstHot)
     }
     else if (this.firstHot.includes('哇')) {
-      this.wow = this.firstHot.replace(/[^0-9]/ig,"");
+      this.wow = this.unitChangeNumber(this.firstHot)
     }
     else if (this.firstHot.includes('嗚')) {
-      this.cry = this.firstHot.replace(/[^0-9]/ig,"");
+      this.cry = this.unitChangeNumber(this.firstHot)
     }
     else if (this.firstHot.includes('怒')) {
-      this.angry = this.firstHot.replace(/[^0-9]/ig,"");
+      this.angry = this.unitChangeNumber(this.firstHot)
     }
   }
   secondHotAnalysis() {
     if (this.secondHot.includes('讚')) {
-      this.like = this.secondHot.replace(/[^0-9]/ig,"");
+      this.like = this.unitChangeNumber(this.secondHot)
     }
     else if (this.secondHot.includes('大心')) {
-      this.bigHeart = this.secondHot.replace(/[^0-9]/ig,"");
+      this.bigHeart = this.unitChangeNumber(this.secondHot)
     }
     else if (this.secondHot.includes('加油')) {
-      this.care = this.secondHot.replace(/[^0-9]/ig,"");
+      this.care = this.unitChangeNumber(this.secondHot)
     }
     else if (this.secondHot.includes('哈')) {
-      this.lol = this.secondHot.replace(/[^0-9]/ig,"");
+      this.lol = this.unitChangeNumber(this.secondHot)
     }
     else if (this.secondHot.includes('哇')) {
-      this.wow = this.secondHot.replace(/[^0-9]/ig,"");
+      this.wow = this.unitChangeNumber(this.secondHot)
     }
     else if (this.secondHot.includes('嗚')) {
-      this.cry = this.secondHot.replace(/[^0-9]/ig,"");
+      this.cry = this.unitChangeNumber(this.secondHot)
     }
     else if (this.secondHot.includes('怒')) {
-      this.angry = this.secondHot.replace(/[^0-9]/ig,"");
+      this.angry = this.unitChangeNumber(this.secondHot)
     }
   }
   thirdHotAnalysis() {
     if (this.thirdHot.includes('讚')) {
-      this.like = this.thirdHot.replace(/[^0-9]/ig,"");
+      this.like = this.unitChangeNumber(this.thirdHot)
     }
     else if (this.thirdHot.includes('大心')) {
-      this.bigHeart = this.thirdHot.replace(/[^0-9]/ig,"");
+      this.bigHeart = this.unitChangeNumber(this.thirdHot)
     }
     else if (this.thirdHot.includes('加油')) {
-      this.care = this.thirdHot.replace(/[^0-9]/ig,"");
+      this.care = this.unitChangeNumber(this.thirdHot)
     }
     else if (this.thirdHot.includes('哈')) {
-      this.lol = this.thirdHot.replace(/[^0-9]/ig,"");
+      this.lol = this.unitChangeNumber(this.thirdHot)
     }
     else if (this.thirdHot.includes('哇')) {
-      this.wow = this.thirdHot.replace(/[^0-9]/ig,"");
+      this.wow = this.unitChangeNumber(this.thirdHot)
     }
     else if (this.thirdHot.includes('嗚')) {
-      this.cry = this.thirdHot.replace(/[^0-9]/ig,"");
+      this.cry = this.unitChangeNumber(this.thirdHot)
     }
     else if (this.thirdHot.includes('怒')) {
-      this.angry = this.thirdHot.replace(/[^0-9]/ig,"");
+      this.angry = this.unitChangeNumber(this.thirdHot)
     }
   }
+  unitChangeNumber(str) {
+  let unit = 1
+  if (str.includes('千萬')) {
+    unit = 10000000
+  }
+  else if (str.includes('百萬')) {
+    unit = 1000000
+  }
+  else if (str.includes('十萬')) {
+    unit = 100000
+  }
+  else if (str.includes('萬')) {
+    unit = 10000
+  }
+  return String(parseFloat(str.replace(/[^0-9\.]/ig,""))*unit)
+}
 };
 
 module.exports = Post

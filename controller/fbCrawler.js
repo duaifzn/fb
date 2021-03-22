@@ -4,9 +4,8 @@ const FanPage = require('../classes/fanPage.js');
 const Post = require('../classes/post.js');
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
-const { fbTofacebookDb } = require('../services/fbService');
+const { compareGrowValue, dataTofacebookDb } = require('../services/fbService');
 const config = require('../config/config');
-console.log(Comment)
 
 //fb登入帳密
 const email = config.email;
@@ -34,6 +33,23 @@ const aCommentTag = 'div[class="tw6a2znq sj5x9vvc d1544ag0 cxgpxx05"]';
 const commentNameTag = 'span[class="d2edcug0 hpfvmrgz qv66sw1b c1et5uql rrkovp55 a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d9wwppkn fe6kdd0r mau55g9w c8b282yb mdeji52x e9vueds3 j5wam9gi lrazzd5p oo9gr5id"]';
 const commentContextTag = 'div[class="kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x c1et5uql"]';  
   
+function unitChangeNumber(str) {
+  let unit = 1
+  if (str.includes('千萬')) {
+    unit = 10000000
+  }
+  else if (str.includes('百萬')) {
+    unit = 1000000
+  }
+  else if (str.includes('十萬')) {
+    unit = 100000
+  }
+  else if (str.includes('萬')) {
+    unit = 10000
+  }
+  return String(parseFloat(str.replace(/[^0-9\.]/ig,""))*unit)
+}
+
 module.exports = async (url) => {
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
@@ -69,11 +85,12 @@ module.exports = async (url) => {
   const $ = cheerio.load(html)
   let fanPage = new FanPage()
   fanPage.url = url
+  //console.log($(aboutTag).first().html())
   let $6 = cheerio.load($(aboutTag).first().html())
   $6(aboutContentTag)
     .each((i, elem) => {
-      if ($6(elem).text().includes('追蹤')) fanPage.follower = $6(elem).text()
-      if ($6(elem).text().includes('讚')) fanPage.like = $6(elem).text()
+      if ($6(elem).text().includes('追蹤')) fanPage.follower = unitChangeNumber($6(elem).text())
+      if ($6(elem).text().includes('讚')) fanPage.like = unitChangeNumber($6(elem).text())
     })
 
   let data = []
@@ -92,10 +109,10 @@ module.exports = async (url) => {
     $2(postNews).each((i, elem) => {
       let context =  $2(elem).text()
       if (context.includes('則留言')) {
-        post.commentValue = String(parseInt(context))
+        post.commentValue = unitChangeNumber(context)
       }
       if (context.includes('分享')) {
-        post.shareValue = String(parseInt(context))
+        post.shareValue = unitChangeNumber(context)
       }
     })
     //1貼文所有留言
@@ -127,8 +144,10 @@ module.exports = async (url) => {
     }
   })
   
+  
   await browser.close();
-
+  //比較讚 追蹤等成長值
+  newFanPage = await compareGrowValue(fanPage)
   //寫入DB
-  await fbTofacebookDb(fanPage);
+  await dataTofacebookDb(newFanPage);
 }

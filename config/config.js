@@ -1,6 +1,6 @@
 module.exports = {
     email: "duaifzn@gmail.com",
-    password: "QAZwsx123321",
+    password: "QAZwsx",
     delay: 10000,
     targetUrls:
         ["https://www.facebook.com/Eunice.action",
