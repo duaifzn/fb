@@ -67,5 +67,8 @@ module.exports = {
     }
     return fanPage
     
-  }
+  },
+  getDbData: async () => {
+    return await facebook.find({}).limit(20);
+  },
 };

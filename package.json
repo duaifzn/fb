@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",
+    "express": "^4.17.1",
     "mongoose": "^5.12.0",
     "node-schedule": "^2.0.0",
     "puppeteer": "^7.1.0"
