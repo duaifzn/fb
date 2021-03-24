@@ -19,8 +19,16 @@ app.get('/', async (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`fb crawler server running on port ${port}`)
-  schedule.scheduleJob('*/1 * * * *', async () =>{
+  console.log(`fb crawler server running on port ${port}`);
+  //先跑第一次fbCrawler
+  (async () =>{
+    for (let i = 0; i < targetUrls.length; i++){
+      fbCrawler(targetUrls[i])
+      await timeout(config.delay);
+    };
+  })();
+  //跑排程
+  schedule.scheduleJob('*/5 * * * *', async () =>{
     console.log('RUN schedule!!!!!!!!!');
     for (let i = 0; i < targetUrls.length; i++){
       fbCrawler(targetUrls[i])
