@@ -55,7 +55,7 @@ module.exports = async (url) => {
   //windows
   //const browser = await puppeteer.launch({ headless: false });
   //linux
-  const browser = await puppeteer.launch({headless: false ,args: ['--no-sandbox', '--disable-setuid-sandbox']});
+  const browser = await puppeteer.launch({args: ['--no-sandbox']});
   const page = await browser.newPage();
   
   await page.goto('https://zh-tw.facebook.com/');
@@ -64,16 +64,16 @@ module.exports = async (url) => {
   await page.waitForSelector('#pass')
   await page.type('#pass', password,{delay: 100})
   await page.click('button[name="login"]')
-  await page.waitForTimeout(3000)
+  await page.waitForTimeout(10000)
   
   await page.goto(url);
-  await page.waitForTimeout(3000)
+  await page.waitForTimeout(10000)
   await page.mouse.click(100, 100)
-  await page.waitForTimeout(5000)
+  await page.waitForTimeout(10000)
 
-  for (let times = 0; times < 5; times++) {
+  for (let times = 0; times < 6; times++) {
     await page.mouse.wheel({ deltaY: 1000 })
-    await page.waitForTimeout(5000)
+    await page.waitForTimeout(10000)
   }
 
   
@@ -138,19 +138,20 @@ module.exports = async (url) => {
 
   
   fanPage.posts.push(...data)
-  console.log(fanPage)
-  data.forEach(d => {
-    if (d.comments) {
-      d.comments.forEach(m => {
-        console.log(m)
-      })
-    }
-  })
+  //顯示抓取的資料
+  // console.log(fanPage)
+  // data.forEach(d => {
+  //   if (d.comments) {
+  //     d.comments.forEach(m => {
+  //       console.log(m)
+  //     })
+  //   }
+  // })
   
   
   await browser.close();
   //比較讚 追蹤等成長值
-  newFanPage = await compareGrowValue(fanPage)
+  let newFanPage = await compareGrowValue(fanPage)
   //寫入DB
   await dataTofacebookDb(newFanPage);
 }

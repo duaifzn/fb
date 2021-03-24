@@ -28,7 +28,7 @@ app.listen(port, () => {
     };
   })();
   //跑排程
-  schedule.scheduleJob('*/5 * * * *', async () =>{
+  schedule.scheduleJob('*/10 * * * *', async () =>{
     console.log('RUN schedule!!!!!!!!!');
     for (let i = 0; i < targetUrls.length; i++){
       fbCrawler(targetUrls[i])

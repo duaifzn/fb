@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const facebookSchema = require('../models/facebook.js');
 
 //連接 rt fb
-const db_facebook = mongoose.createConnection('mongodb://0.0.0.0:27018/facebook', {
+const db_facebook = mongoose.createConnection('mongodb://ox-mongo:27017/facebook', {
   auth: { authSource: 'admin' },
   user: 'eagle',
   pass: 'eagle-eye',
