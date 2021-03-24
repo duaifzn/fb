@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const facebookSchema = require('../models/facebook.js');
 
 //連接 rt fb
-const db_facebook = mongoose.createConnection('mongodb://ox-mongo:27017/facebook', {
+const db_facebook = mongoose.createConnection('mongodb://0.0.0.0:27018/facebook', {
   auth: { authSource: 'admin' },
   user: 'eagle',
   pass: 'eagle-eye',
@@ -36,15 +36,17 @@ module.exports = {
       )
     }
     else {
-      oldData.overwrite({
+      await facebook.replaceOne({ _id: oldData._id }, {
         url: fanPage.url,
         like: fanPage.like,
         likeGrowValue: fanPage.likeGrowValue,
         follower: fanPage.follower,
         followerGrowValue: fanPage.followerGrowValue,
         posts: fanPage.posts,
-      })
-      await oldData.save();
+      },(err, result) =>{
+        if(err) console.log(err)
+        if(result) console.log('replace data!!')
+      });
     }
     
   },
