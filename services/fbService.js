@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const facebookSchema = require('../models/facebook.js');
 
 //連接 rt fb
-const db_facebook = mongoose.createConnection('mongodb://0.0.0.0:27018/facebook', {
+const db_facebook = mongoose.createConnection('mongodb://ox-mongo:27017/facebook', {
   auth: { authSource: 'admin' },
   user: 'eagle',
   pass: 'eagle-eye',
@@ -53,15 +53,15 @@ module.exports = {
   compareGrowValue: async fanPage => {
     let oldData = await facebook.findOne({ url: fanPage.url });
     if (oldData) {
-      fanPage.likeGrowValue = fanPage.like - oldData.like
-      fanPage.commentGrowValue = fanPage.commentValue - oldData.commentValue
-      fanPage.shareGrowValue = fanPage.shareValue - oldData.shareValue
+      fanPage.likeGrowValue = String(parseInt(fanPage.like) - parseInt(oldData.like))
+      fanPage.commentGrowValue = String(parseInt(fanPage.commentValue) - parseInt(oldData.commentValue))
+      fanPage.shareGrowValue = String(parseInt(fanPage.shareValue) - parseInt(oldData.shareValue))
       fanPage.posts.map(newPost => {
         oldData.posts.forEach(oldPost => {
           if (oldPost.title === newPost.title){
-            newPost.likeGrowValue = newPost.like - oldPost.like
-            newPost.commentGrowValue = newPost.commentValue - oldPost.commentValue
-            newPost.shareGrowValue = newPost.shareValue - oldPost.shareValue
+            newPost.likeGrowValue = String(parseInt(newPost.like) - parseInt(oldPost.like))
+            newPost.commentGrowValue = String(parseInt(newPost.commentValue) - parseInt(oldPost.commentValue))
+            newPost.shareGrowValue = String(parseInt(newPost.shareValue) - parseInt(oldPost.shareValue))
           }
         })
         return newPost

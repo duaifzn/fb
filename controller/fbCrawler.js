@@ -13,7 +13,7 @@ const password = config.password;
 //簡介 tag
 const aboutTag = 'div[class="j83agx80 l9j0dhe7 k4urcfbm"]';
                                      
-const aboutContentTag = 'span[class="d2edcug0 hpfvmrgz qv66sw1b c1et5uql gk29lw5a a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d9wwppkn fe6kdd0r mau55g9w c8b282yb hrzyx87i jq4qci2q a3bd9o3v knj5qynh oo9gr5id hzawbc8m"]'
+const aboutContentTag = 'span[class="d2edcug0 hpfvmrgz qv66sw1b c1et5uql b0tq1wua a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d9wwppkn fe6kdd0r mau55g9w c8b282yb hrzyx87i jq4qci2q a3bd9o3v knj5qynh oo9gr5id hzawbc8m"]'
 //貼文 tag
 const aPostTag = 'div[class="du4w35lb k4urcfbm l9j0dhe7 sjgh65i0"]';
 //貼文 title tag
@@ -27,7 +27,7 @@ const secondHotTag = 'span[class="np69z8it et4y5ytx j7g94pet b74d5cxt qw6c0r16 k
 //貼文 lol tag
 const thirdHotTag = 'span[class="np69z8it et4y5ytx j7g94pet b74d5cxt qw6c0r16 kb8x4rkr ed597pkb omcyoz59 goun2846 ccm00jje s44p3ltw mk2mc5f4 qxh1up0x qtyiw8t4 tpcyxxvw k0bpgpbk hm271qws rl04r1d5 l9j0dhe7 ov9facns du4w35lb"] div'
 //留言分享 Tag
-const postNews = 'span[class="d2edcug0 hpfvmrgz qv66sw1b c1et5uql rrkovp55 a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d3f4x2em fe6kdd0r mau55g9w c8b282yb iv3no6db jq4qci2q a3bd9o3v knj5qynh m9osqain"]';
+const postNews = 'span[class="d2edcug0 hpfvmrgz qv66sw1b c1et5uql b0tq1wua a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d9wwppkn fe6kdd0r mau55g9w c8b282yb hrzyx87i jq4qci2q a3bd9o3v knj5qynh m9osqain"]';
 //1貼文內留言
 const aCommentTag = 'div[class="tw6a2znq sj5x9vvc d1544ag0 cxgpxx05"]';
 //1貼文1留言 
