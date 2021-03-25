@@ -5,6 +5,7 @@ const Post = require('../classes/post.js');
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 const { compareGrowValue, dataTofacebookDb } = require('../services/fbService');
+const { unitChangeNumber } = require('../helpers/unitChangeNumber.js')
 const config = require('../config/config');
 
 //fb登入帳密
@@ -34,28 +35,12 @@ const aCommentTag = 'div[class="tw6a2znq sj5x9vvc d1544ag0 cxgpxx05"]';
 const commentNameTag = 'div[class="nc684nl6"]';
 const commentContextTag = 'div[class="ecm0bbzt e5nlhep0 a8c37x1j"]';  
   
-function unitChangeNumber(str) {
-  let unit = 1
-  if (str.includes('千萬')) {
-    unit = 10000000
-  }
-  else if (str.includes('百萬')) {
-    unit = 1000000
-  }
-  else if (str.includes('十萬')) {
-    unit = 100000
-  }
-  else if (str.includes('萬')) {
-    unit = 10000
-  }
-  return String(parseFloat(str.replace(/[^0-9\.]/ig,""))*unit)
-}
 
 module.exports = async (url) => {
   //windows
-  //const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: false });
   //linux
-  const browser = await puppeteer.launch({args: ['--no-sandbox']});
+  //const browser = await puppeteer.launch({args: ['--no-sandbox']});
   const page = await browser.newPage();
   
   await page.goto('https://zh-tw.facebook.com/');
