@@ -5,6 +5,8 @@ class FanPage{
     this.likeGrowValue = '0';
     this.follower = 'null';
     this.followerGrowValue = '0';
+    this.profileImageUrl = 'null';
+    this.backgroundImageUrl = 'null';
     this.posts = [];
   }
 }

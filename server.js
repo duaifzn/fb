@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const { getDbData } = require('./services/fbService.js')
+const config = require('./config/config.js');
 
 app.use(function(req, res, next) {
   const allowedOrigins = config.allowedOrigins;

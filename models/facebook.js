@@ -33,6 +33,8 @@ const facebookSchema = new Schema({
   likeGrowValue:{type: String, default: '0'},
   follower: { type: String },
   followerGrowValue: { type: String, default: '0' },
+  profileImageUrl: { type: String },
+  backgroundImageUrl: { type: String }, 
   posts: [postSchema],
 }, { timestamps: true ,collection: 'facebook'});
 

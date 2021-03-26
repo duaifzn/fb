@@ -11,6 +11,8 @@ const config = require('../config/config');
 //fb登入帳密
 const email = config.email;
 const password = config.password;
+//主頁個人照 tag
+const profileImageTag = 'div[class="l9j0dhe7 dp1hu0rb cbu4d94t j83agx80"] > div:nth-child(1)'
 //簡介 tag
 const aboutTag = 'div[class="j83agx80 l9j0dhe7 k4urcfbm"]';
                                      
@@ -74,6 +76,15 @@ module.exports = async (url) => {
   const $ = cheerio.load(html)
   let fanPage = new FanPage()
   fanPage.url = url
+  let $7 = cheerio.load($(profileImageTag).html())
+  //背景圖
+  $7('img').each((i, elem) =>{
+    if($7(elem).attr('src').includes('960x960')) fanPage.backgroundImageUrl = $7(elem).attr('src');
+  });
+  //大頭照
+  $7('image').each((i, elem) =>{
+    if($7(elem).attr('href')) fanPage.profileImageUrl = $7(elem).attr('href');
+  });
   let $6 = cheerio.load($(aboutTag).first().html())
   $6(aboutContentTag)
     .each((i, elem) => {
@@ -124,7 +135,7 @@ module.exports = async (url) => {
   
   fanPage.posts.push(...data)
   //顯示抓取的資料
-  // console.log(fanPage)
+  //console.log(fanPage)
   // data.forEach(d => {
   //   if (d.comments) {
   //     d.comments.forEach(m => {

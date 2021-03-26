@@ -27,7 +27,9 @@ module.exports = {
         {
           url: fanPage.url,
           like: fanPage.like,
-          follower: fanPage.follower,     
+          follower: fanPage.follower,
+          profileImageUrl: fanPage.profileImageUrl,
+          backgroundImageUrl: fanPage.backgroundImageUrl,     
           posts: fanPage.posts,
         },
         (err, data) => {
@@ -42,6 +44,8 @@ module.exports = {
         likeGrowValue: fanPage.likeGrowValue,
         follower: fanPage.follower,
         followerGrowValue: fanPage.followerGrowValue,
+        profileImageUrl: fanPage.profileImageUrl,
+        backgroundImageUrl: fanPage.backgroundImageUrl,  
         posts: fanPage.posts,
       },(err, result) =>{
         if(err) console.log(err)
